@@ -18,18 +18,23 @@ func main() {
 	Account1.GetBalance()
 
 	//Notifier
-	
-	var notifiers []types.Notify
-	
-	func NotifyAll(notifiers []types.Notify, message string){
-		for _, v := range notifiers {
-			err := v.Send(message string)
-			if err != nil {
-				fmt.Println(err)
-				continue
-			}
-			fmt.Println("notified")
+
+	notifiers := []types.Notify{&types.MailNotifier{Address: "example@gmail.com"},
+		&types.SMSNotifier{Phonenumber: "1234567890"},
+		&types.PushNotifier{Device: "HFD12347578"},
+		&types.WhatsappNotifier{Phonenumber: "1234567890"}}
+	NotifyAll(notifiers, "new movie update")
+
+}
+
+func NotifyAll(notifiers []types.Notify, message string) {
+	for _, v := range notifiers {
+		err := v.Send(message)
+		if err != nil {
+			fmt.Println(err)
+			continue
 		}
-		fmt.Println("notified message by all notifiers")
+		fmt.Println("notified")
 	}
+	fmt.Println("notified message by all notifiers")
 }
