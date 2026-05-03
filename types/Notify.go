@@ -7,7 +7,7 @@ type Notify interface {
 }
 
 type SMSNotifier struct {
-	Phonenumber string
+	PhoneNumber string
 }
 
 type MailNotifier struct {
@@ -20,25 +20,25 @@ type PushNotifier struct {
 
 //newone
 type WhatsappNotifier struct {
-	Phonenumber string
+	PhoneNumber string
 }
 
 func (n *SMSNotifier) Send(message string) error {
-	fmt.Printf("%s sent to %s", message, n.Phonenumber)
+	fmt.Printf("%s sent to %s\n", message, n.PhoneNumber)
 	return nil
 }
 
 func (n *MailNotifier) Send(message string) error {
-	fmt.Printf("%s sent to %s", message, n.Address)
+	fmt.Printf("%s sent to %s\n", message, n.Address)
 	return nil
 }
 
 func (n *PushNotifier) Send(message string) error {
-	fmt.Printf("%s sent to %s", message, n.Device)
+	fmt.Printf("%s sent to %s\n", message, n.Device)
 	return nil
 }
 
 func (n *WhatsappNotifier) Send(message string) error {
-	fmt.Printf("%s Whatsapp msg sent to %s", message, n.Phonenumber)
+	fmt.Printf("%s Whatsapp msg sent to %s\n", message, n.PhoneNumber)
 	return nil
 }
