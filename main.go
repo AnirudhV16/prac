@@ -43,6 +43,25 @@ func main() {
 
 	types.PrintTopRated(ratings, 2)
 
+	//discount
+	Pcustomer := types.Customer{
+		Name:               "Anirudh",
+		DiscountCalculator: types.PremiumDiscount{},
+	}
+	Rcustomer := types.Customer{
+		Name:               "Anirudh",
+		DiscountCalculator: types.RegularDiscount{},
+	}
+	Scustomer := types.Customer{
+		Name:               "Anirudh",
+		DiscountCalculator: types.StudentDiscount{},
+	}
+
+	customers := []types.Customer{Pcustomer, Rcustomer, Scustomer}
+	for _, c := range customers {
+		fmt.Println(c.CalculateDiscount(1000))
+	}
+
 }
 
 func NotifyAll(notifiers []types.Notify, message string) {
