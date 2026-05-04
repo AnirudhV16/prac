@@ -62,6 +62,31 @@ func main() {
 		fmt.Println(c.CalculateDiscount(1000))
 	}
 
+	//L - principle
+	circle, err := types.NewCircle(12)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(circle.Area())
+	}
+	sphere, err := types.NewSphere(14)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(sphere.Volume())
+	}
+
+	//D principle
+	sms := types.SMSService{}
+	email := types.EmailService{}
+
+	//notifier
+	services := []types.MessageService{sms, email}
+	for _, v := range services {
+		notifier := types.NewOrderNotifier(v)
+		notifier.NotifyOrder("Hiiiiiiiiiiiiiiiiiiiiii")
+	}
+
 }
 
 func NotifyAll(notifiers []types.Notify, message string) {
