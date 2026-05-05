@@ -87,6 +87,16 @@ func main() {
 		notifier.NotifyOrder("Hiiiiiiiiiiiiiiiiiiiiii")
 	}
 
+	//factory
+	eemail, err := types.NewNotification("email")
+	smss, err := types.NewNotification("sms")
+	pushh, err := types.NewNotification("push")
+
+	notifierss := []types.Notification{eemail, smss, pushh}
+	for _, v := range notifierss {
+		v.Notify("Helloooooo!")
+	}
+
 }
 
 func NotifyAll(notifiers []types.Notify, message string) {
