@@ -97,6 +97,34 @@ func main() {
 		v.Notify("Helloooooo!")
 	}
 
+	//builder
+	pizza1, err := types.NewPizzaBuilder("medium", "???").WithSauce("????").WithCheese("*****").WithToppings("----", "88888", "44444", "0000").Build()
+	if err != nil {
+		fmt.Println(err)
+	}
+	pizza2, err := types.NewPizzaBuilder("large", "???").WithSauce("????").WithCheese("*****").WithToppings("----").Build()
+	if err != nil {
+		fmt.Println(err)
+	}
+	pizza1.Describe()
+	pizza2.Describe()
+
+	//abstract
+	mysqlfactory := types.NewDatabaseClient(&types.MySQLFactory{})
+	mysqlfactory.Run("Hi.......")
+
+	postgresfactory := types.NewDatabaseClient(&types.PostgresFactory{})
+	postgresfactory.Run("Hello.......")
+
+	//decorator
+	s := "  Hello World  "
+
+	var holder types.TextProcessor = types.NewPlainTextProcessor()
+	holder = types.NewUpperCaseDecorator(holder)
+	holder = types.NewTrimDecorator(holder)
+	holder = types.NewExclamationDecorator(holder)
+
+	fmt.Println(holder.Process(s))
 }
 
 func NotifyAll(notifiers []types.Notify, message string) {
