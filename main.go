@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/AnirudhV16/prac/types"
+	"github.com/AnirudhV16/prac/use"
 )
 
 func main() {
@@ -179,6 +180,25 @@ func main() {
 	types.Run(pdf)
 	types.Run(excel)
 
+	//parking lot
+	//made a bike spot
+	spot1 := use.NewBasicSpot(use.BikeFeeCalculator{}, "bike")
+	//made floor
+	floor := use.Floor{}
+	//added bike spot in to the floor
+	floor.AddSpots(spot1)
+	//made a parking and added one floor to it
+	parking := use.ParkingLot{Floors: []use.Floor{floor}}
+	//made vehicle
+	vehicle := use.NewVehicle("XYZ", "AP1234", "bike")
+	//park the bike
+	ticket, err := parking.Park(*vehicle)
+	if err != nil {
+		fmt.Println(err)
+	} else { //unpark the vehicle
+		fees := parking.Unpark(*ticket)
+		fmt.Printf("Fees to be paid %f\n", fees)
+	}
 }
 
 func NotifyAll(notifiers []types.Notify, message string) {
