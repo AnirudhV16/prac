@@ -125,6 +125,60 @@ func main() {
 	holder = types.NewExclamationDecorator(holder)
 
 	fmt.Println(holder.Process(s))
+
+	//fascade
+	HomeTheatre := types.HomeTheatreFacade{}
+	HomeTheatre.WatchMovie("Raabta")
+	HomeTheatre.EndMovie()
+
+	//composite
+	smanager := types.NewManager("A", 600, make([]types.Employee, 0))
+	dev1 := types.NewDeveloper("B", 500)
+	smanager.AddSubordinate(dev1)
+
+	jmanager := types.NewManager("C", 450, make([]types.Employee, 0))
+	smanager.AddSubordinate(jmanager)
+
+	dev2 := types.NewDeveloper("D", 400)
+	dev3 := types.NewDeveloper("E", 420)
+	jmanager.AddSubordinate(dev2)
+	jmanager.AddSubordinate(dev3)
+
+	//this should print sum of all the salaries in the tree 2300 + 70 => 2370
+	fmt.Println(smanager.GetSalary())
+
+	//observer
+	subject := types.NewStockMarket(make([]types.Stocker, 0)) //this is subject
+	ob1 := types.NewTradeAlert("AAAAAAA")
+	ob2 := types.NewPriceLogger()
+
+	subject.Subscribe(ob1)
+	subject.Subscribe(ob2)
+
+	subject.SetPrice("bitcoin", 24234)
+
+	subject.Unsubscribe(ob2)
+
+	subject.SetPrice("dozge", 2000)
+
+	//command
+
+	light := types.NewLight()
+	invoker := types.RemoteControl{}
+	invoker.PressButton(&types.TurnOnCommand{Light: light})
+	invoker.PressButton(&types.TurnOffCommand{Light: light})
+	invoker.PressButton(&types.TurnOffCommand{Light: light})
+	invoker.PressUndo()
+	invoker.PressUndo()
+
+	fmt.Printf("state of light: %d\n", light.GetState())
+
+	//template
+	pdf := types.PDFReport{}
+	excel := types.ExcelReport{}
+	types.Run(pdf)
+	types.Run(excel)
+
 }
 
 func NotifyAll(notifiers []types.Notify, message string) {
