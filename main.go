@@ -199,6 +199,9 @@ func main() {
 		fees := parking.Unpark(*ticket)
 		fmt.Printf("Fees to be paid %f\n", fees)
 	}
+
+	//library, 2 books, 1 member -> borrows 2 books
+
 }
 
 func NotifyAll(notifiers []types.Notify, message string) {
